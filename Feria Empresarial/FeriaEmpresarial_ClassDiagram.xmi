@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.1">
+  <uml:Model xmi:id="model_feria" name="FeriaEmpresarial">
+
+    <!-- Tipos primitivos -->
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_String" name="String"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_int" name="int"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_boolean" name="boolean"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_Date" name="Date"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_void" name="void"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_List" name="List"/>
+
+    <!-- Empresa -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_Empresa" name="Empresa">
+      <ownedAttribute xmi:id="emp_nombre" name="nombre" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="emp_sector" name="sector" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="emp_correo" name="correoElectronico" visibility="private" type="type_String"/>
+      <ownedOperation xmi:id="emp_registrar" name="registrarEmpresa" visibility="public">
+        <ownedParameter xmi:id="emp_registrar_ret" direction="return" type="type_void"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="emp_getInfo" name="getInfo" visibility="public">
+        <ownedParameter xmi:id="emp_getInfo_ret" direction="return" type="type_String"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- Stand -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_Stand" name="Stand">
+      <ownedAttribute xmi:id="st_numero" name="numero" visibility="private" isUnique="true" type="type_int"/>
+      <ownedAttribute xmi:id="st_ubicacion" name="ubicacion" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="st_tamano" name="tamano" visibility="private" type="type_String"/>
+      <ownedOperation xmi:id="st_asignarEmpresa" name="asignarEmpresa" visibility="public">
+        <ownedParameter xmi:id="st_asignarEmpresa_p1" name="e" direction="in" type="cls_Empresa"/>
+        <ownedParameter xmi:id="st_asignarEmpresa_ret" direction="return" type="type_void"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="st_getDisponibilidad" name="getDisponibilidad" visibility="public">
+        <ownedParameter xmi:id="st_getDisponibilidad_ret" direction="return" type="type_boolean"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- Visitante -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_Visitante" name="Visitante">
+      <ownedAttribute xmi:id="vis_nombre" name="nombre" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="vis_identificacion" name="identificacion" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="vis_correo" name="correoElectronico" visibility="private" type="type_String"/>
+      <ownedOperation xmi:id="vis_registrarVisita" name="registrarVisita" visibility="public">
+        <ownedParameter xmi:id="vis_registrarVisita_ret" direction="return" type="type_void"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="vis_dejarComentario" name="dejarComentario" visibility="public">
+        <ownedParameter xmi:id="vis_dejarComentario_p1" name="c" direction="in" type="cls_Comentario"/>
+        <ownedParameter xmi:id="vis_dejarComentario_ret" direction="return" type="type_void"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- Comentario -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_Comentario" name="Comentario">
+      <ownedAttribute xmi:id="com_nombreVisitante" name="nombreVisitante" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="com_fecha" name="fecha" visibility="private" type="type_Date"/>
+      <ownedAttribute xmi:id="com_calificacion" name="calificacion" visibility="private" type="type_int"/>
+      <ownedAttribute xmi:id="com_comentario" name="comentario" visibility="private" type="type_String"/>
+      <ownedOperation xmi:id="com_mostrar" name="mostrarComentario" visibility="public">
+        <ownedParameter xmi:id="com_mostrar_ret" direction="return" type="type_String"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- FeriaEmpresarial (clase gestora) -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_FeriaEmpresarial" name="FeriaEmpresarial">
+      <ownedAttribute xmi:id="fer_nombreFeria" name="nombreFeria" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="fer_fecha" name="fecha" visibility="private" type="type_Date"/>
+      <ownedAttribute xmi:id="fer_empresas" name="empresas" visibility="private" type="type_List"/>
+      <ownedAttribute xmi:id="fer_visitantes" name="visitantes" visibility="private" type="type_List"/>
+      <ownedAttribute xmi:id="fer_stands" name="stands" visibility="private" type="type_List"/>
+      <ownedOperation xmi:id="fer_registrarEmpresa" name="registrarEmpresa" visibility="public">
+        <ownedParameter xmi:id="fer_registrarEmpresa_p1" name="e" direction="in" type="cls_Empresa"/>
+        <ownedParameter xmi:id="fer_registrarEmpresa_ret" direction="return" type="type_void"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="fer_registrarVisitante" name="registrarVisitante" visibility="public">
+        <ownedParameter xmi:id="fer_registrarVisitante_p1" name="v" direction="in" type="cls_Visitante"/>
+        <ownedParameter xmi:id="fer_registrarVisitante_ret" direction="return" type="type_void"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="fer_generarReporte" name="generarReporte" visibility="public">
+        <ownedParameter xmi:id="fer_generarReporte_ret" direction="return" type="type_String"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- Composicion FeriaEmpresarial -> Empresa -->
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_FeriaEmpresa" name="gestiona">
+      <memberEnd xmi:idref="end_fer_emp"/>
+      <memberEnd xmi:idref="end_emp_fer"/>
+      <ownedEnd xmi:id="end_fer_emp" name="feria" type="cls_FeriaEmpresarial" aggregation="none">
+        <lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralInteger" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="end_emp_fer" name="empresas" type="cls_Empresa" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+
+    <!-- Composicion FeriaEmpresarial -> Visitante -->
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_FeriaVisitante" name="gestiona">
+      <memberEnd xmi:idref="end_fer_vis"/>
+      <memberEnd xmi:idref="end_vis_fer"/>
+      <ownedEnd xmi:id="end_fer_vis" name="feria" type="cls_FeriaEmpresarial" aggregation="none">
+        <lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralInteger" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="end_vis_fer" name="visitantes" type="cls_Visitante" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+
+    <!-- Composicion FeriaEmpresarial -> Stand -->
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_FeriaStand" name="gestiona">
+      <memberEnd xmi:idref="end_fer_st"/>
+      <memberEnd xmi:idref="end_st_fer"/>
+      <ownedEnd xmi:id="end_fer_st" name="feria" type="cls_FeriaEmpresarial" aggregation="none">
+        <lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralInteger" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="end_st_fer" name="stands" type="cls_Stand" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+
+    <!-- Asociacion Empresa - Stand (ocupa) -->
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_EmpresaStand" name="ocupa">
+      <memberEnd xmi:idref="end_emp_ocupa"/>
+      <memberEnd xmi:idref="end_st_ocupada"/>
+      <ownedEnd xmi:id="end_emp_ocupa" name="empresa" type="cls_Empresa" aggregation="none">
+        <lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralInteger" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="end_st_ocupada" name="stand" type="cls_Stand" aggregation="none">
+        <lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralInteger" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+
+    <!-- Composicion Visitante -> Comentario -->
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_VisitanteComentario" name="escribe">
+      <memberEnd xmi:idref="end_vis_com"/>
+      <memberEnd xmi:idref="end_com_vis"/>
+      <ownedEnd xmi:id="end_vis_com" name="visitante" type="cls_Visitante" aggregation="none">
+        <lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralInteger" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="end_com_vis" name="comentarios" type="cls_Comentario" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+
+    <!-- Asociacion Comentario - Stand (refiere a) -->
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_ComentarioStand" name="refiereA">
+      <memberEnd xmi:idref="end_com_st"/>
+      <memberEnd xmi:idref="end_st_com"/>
+      <ownedEnd xmi:id="end_com_st" name="comentario" type="cls_Comentario" aggregation="none">
+        <lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="end_st_com" name="stand" type="cls_Stand" aggregation="none">
+        <lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralInteger" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+
+  </uml:Model>
+</xmi:XMI>

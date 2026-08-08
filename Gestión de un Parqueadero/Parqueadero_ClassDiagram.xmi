@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.1">
+  <uml:Model xmi:id="model_parqueadero" name="GestionParqueadero">
+
+    <!-- Tipos primitivos -->
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_String" name="String"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_int" name="int"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_double" name="double"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_Date" name="Date"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_void" name="void"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="type_List" name="List"/>
+
+    <!-- Clase abstracta Vehiculo -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_Vehiculo" name="Vehiculo" isAbstract="true">
+      <ownedAttribute xmi:id="veh_placa" name="placa" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="veh_marca" name="marca" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="veh_modelo" name="modelo" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="veh_horaEntrada" name="horaEntrada" visibility="private" type="type_Date"/>
+      <ownedOperation xmi:id="veh_calcularTarifa" name="calcularTarifa" visibility="public" isAbstract="true">
+        <ownedParameter xmi:id="veh_calcularTarifa_p1" name="horaSalida" direction="in" type="type_Date"/>
+        <ownedParameter xmi:id="veh_calcularTarifa_ret" direction="return" type="type_double"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="veh_getInfo" name="getInfo" visibility="public">
+        <ownedParameter xmi:id="veh_getInfo_ret" direction="return" type="type_String"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- Automovil -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_Automovil" name="Automovil">
+      <generalization xmi:id="gen_Automovil" general="cls_Vehiculo"/>
+      <ownedAttribute xmi:id="auto_tipoCombustible" name="tipoCombustible" visibility="private" type="type_String"/>
+      <ownedOperation xmi:id="auto_calcularTarifa" name="calcularTarifa" visibility="public">
+        <ownedParameter xmi:id="auto_calcularTarifa_p1" name="horaSalida" direction="in" type="type_Date"/>
+        <ownedParameter xmi:id="auto_calcularTarifa_ret" direction="return" type="type_double"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- Motocicleta -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_Motocicleta" name="Motocicleta">
+      <generalization xmi:id="gen_Motocicleta" general="cls_Vehiculo"/>
+      <ownedAttribute xmi:id="moto_cilindraje" name="cilindraje" visibility="private" type="type_int"/>
+      <ownedOperation xmi:id="moto_calcularTarifa" name="calcularTarifa" visibility="public">
+        <ownedParameter xmi:id="moto_calcularTarifa_p1" name="horaSalida" direction="in" type="type_Date"/>
+        <ownedParameter xmi:id="moto_calcularTarifa_ret" direction="return" type="type_double"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- Camion -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_Camion" name="Camion">
+      <generalization xmi:id="gen_Camion" general="cls_Vehiculo"/>
+      <ownedAttribute xmi:id="cam_capacidadCarga" name="capacidadCarga" visibility="private" type="type_double"/>
+      <ownedOperation xmi:id="cam_calcularTarifa" name="calcularTarifa" visibility="public">
+        <ownedParameter xmi:id="cam_calcularTarifa_p1" name="horaSalida" direction="in" type="type_Date"/>
+        <ownedParameter xmi:id="cam_calcularTarifa_ret" direction="return" type="type_double"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- Parqueadero -->
+    <packagedElement xmi:type="uml:Class" xmi:id="cls_Parqueadero" name="Parqueadero">
+      <ownedAttribute xmi:id="parq_nombre" name="nombre" visibility="private" type="type_String"/>
+      <ownedAttribute xmi:id="parq_capacidadTotal" name="capacidadTotal" visibility="private" type="type_int"/>
+      <ownedAttribute xmi:id="parq_vehiculos" name="vehiculosRegistrados" visibility="private" type="type_List"/>
+      <ownedOperation xmi:id="parq_registrarEntrada" name="registrarEntrada" visibility="public">
+        <ownedParameter xmi:id="parq_registrarEntrada_p1" name="v" direction="in" type="cls_Vehiculo"/>
+        <ownedParameter xmi:id="parq_registrarEntrada_ret" direction="return" type="type_void"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="parq_registrarSalida" name="registrarSalida" visibility="public">
+        <ownedParameter xmi:id="parq_registrarSalida_p1" name="placa" direction="in" type="type_String"/>
+        <ownedParameter xmi:id="parq_registrarSalida_ret" direction="return" type="type_double"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="parq_consultarEstado" name="consultarEstado" visibility="public">
+        <ownedParameter xmi:id="parq_consultarEstado_ret" direction="return" type="type_String"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="parq_buscarVehiculo" name="buscarVehiculo" visibility="public">
+        <ownedParameter xmi:id="parq_buscarVehiculo_p1" name="placa" direction="in" type="type_String"/>
+        <ownedParameter xmi:id="parq_buscarVehiculo_ret" direction="return" type="cls_Vehiculo"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <!-- Agregacion: Parqueadero (1) hacia Vehiculo (0..*) -->
+    <packagedElement xmi:type="uml:Association" xmi:id="assoc_ParqueaderoVehiculo" name="gestiona">
+      <memberEnd xmi:idref="end_parq"/>
+      <memberEnd xmi:idref="end_veh"/>
+      <ownedEnd xmi:id="end_parq" name="parqueadero" type="cls_Parqueadero" aggregation="none">
+        <lowerValue xmi:type="uml:LiteralInteger" value="1"/>
+        <upperValue xmi:type="uml:LiteralInteger" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="end_veh" name="vehiculos" type="cls_Vehiculo" aggregation="shared">
+        <lowerValue xmi:type="uml:LiteralInteger" value="0"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+
+  </uml:Model>
+</xmi:XMI>
